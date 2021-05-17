@@ -1,0 +1,116 @@
+<project name="eventhub_test" threads="1" pubsub="auto" heartbeat-interval="1">
+  <metadata>
+    <meta id="studioUploadedBy">dawilk</meta>
+    <meta id="studioUploaded">1606159573153</meta>
+    <meta id="studioModifiedBy">brstar</meta>
+    <meta id="studioModified">1618945362258</meta>
+    <meta id="layout">{"cq1":{"EventHubSource":{"x":-30,"y":-60},"FunctionalDoNothing":{"x":-25,"y":100},"Source1":{"x":-30,"y":-155}}}</meta>
+  </metadata>
+  <contqueries>
+    <contquery name="cq1">
+      <windows>
+        <window-source pubsub="true" insert-only="true" autogen-key="true" name="EventHubSource">
+          <schema>
+            <fields>
+              <field name="index" type="int64" key="true"/>
+              <field name="deviceID" type="string"/>
+              <field name="Device_Subtype" type="string"/>
+              <field name="timestamp" type="stamp"/>
+              <field name="Latitude" type="string"/>
+              <field name="Longitude" type="string"/>
+              <field name="humidity" type="int32"/>
+              <field name="rain" type="double"/>
+              <field name="rainplus1" type="double"/>
+              <field name="rainplus2" type="double"/>
+              <field name="rainplus3" type="double"/>
+              <field name="rainplus4" type="double"/>
+              <field name="rainplus5" type="double"/>
+              <field name="rainplus6" type="double"/>
+              <field name="rainprobability" type="double"/>
+              <field name="rainprobabilityplus1" type="double"/>
+              <field name="rainprobabilityplus2" type="double"/>
+              <field name="rainprobabilityplus3" type="double"/>
+              <field name="rainprobabilityplus4" type="double"/>
+              <field name="rainprobabilityplus5" type="double"/>
+              <field name="rainprobabilityplus6" type="double"/>
+              <field name="temperature" type="double"/>
+              <field name="temperatureplus1" type="double"/>
+              <field name="temperatureplus2" type="double"/>
+              <field name="temperatureplus3" type="double"/>
+              <field name="temperatureplus4" type="double"/>
+              <field name="temperatureplus5" type="double"/>
+              <field name="temperatureplus6" type="double"/>
+              <field name="windspeed" type="double"/>
+              <field name="type" type="string"/>
+              <field name="location" type="string"/>
+            </fields>
+          </schema>
+          <connectors>
+            <connector class="eventhubs" name="EventHubConnector0">
+              <description><![CDATA[Partition 0]]></description>
+              <properties>
+                <property name="type"><![CDATA[pub]]></property>
+                <property name="eventhubsconnectionstring"><![CDATA[Endpoint=sb://weather-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<SAS KEY>]]></property>
+                <property name="eventhubspath"><![CDATA[weather]]></property>
+                <property name="eventhubsconsumergroup"><![CDATA[$default]]></property>
+                <property name="eventhubspartition"><![CDATA[0]]></property>
+                <property name="eventhubsformat"><![CDATA[json]]></property>
+              </properties>
+            </connector>
+            <connector name="EventHubConnector1" class="eventhubs">
+              <description><![CDATA[Partition 1]]></description>
+              <properties>
+                <property name="type"><![CDATA[pub]]></property>
+                <property name="eventhubsconnectionstring"><![CDATA[Endpoint=sb://weather-event-hub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<SAS KEY>]]></property>
+                <property name="eventhubspath"><![CDATA[weather]]></property>
+                <property name="eventhubsconsumergroup"><![CDATA[$default]]></property>
+                <property name="eventhubspartition"><![CDATA[1]]></property>
+                <property name="eventhubsformat"><![CDATA[json]]></property>
+              </properties>
+            </connector>
+          </connectors>
+        </window-source>
+        <window-functional name="Functional">
+          <schema>
+            <fields>
+              <field name="index" type="int64" key="true"/>
+              <field name="deviceID" type="string"/>
+              <field name="Device_Subtype" type="string"/>
+              <field name="timestamp" type="stamp"/>
+              <field name="Latitude" type="string"/>
+              <field name="Longitude" type="string"/>
+              <field name="humidity" type="int32"/>
+              <field name="rain" type="double"/>
+              <field name="rainplus1" type="double"/>
+              <field name="rainplus2" type="double"/>
+              <field name="rainplus3" type="double"/>
+              <field name="rainplus4" type="double"/>
+              <field name="rainplus5" type="double"/>
+              <field name="rainplus6" type="double"/>
+              <field name="rainprobability" type="double"/>
+              <field name="rainprobabilityplus1" type="double"/>
+              <field name="rainprobabilityplus2" type="double"/>
+              <field name="rainprobabilityplus3" type="double"/>
+              <field name="rainprobabilityplus4" type="double"/>
+              <field name="rainprobabilityplus5" type="double"/>
+              <field name="rainprobabilityplus6" type="double"/>
+              <field name="temperature" type="double"/>
+              <field name="temperatureplus1" type="double"/>
+              <field name="temperatureplus2" type="double"/>
+              <field name="temperatureplus3" type="double"/>
+              <field name="temperatureplus4" type="double"/>
+              <field name="temperatureplus5" type="double"/>
+              <field name="temperatureplus6" type="double"/>
+              <field name="windspeed" type="double"/>
+              <field name="type" type="string"/>
+              <field name="location" type="string"/>
+            </fields>
+          </schema>
+        </window-functional>
+      </windows>
+      <edges>
+        <edge source="EventHubSource" target="Functional"/>
+      </edges>
+    </contquery>
+  </contqueries>
+</project>
